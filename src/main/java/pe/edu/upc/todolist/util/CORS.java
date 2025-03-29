@@ -40,4 +40,14 @@ public class CORS implements Filter {
 	public void destroy() {
 		// TODO Auto-generated method stub
 	}
+	//Usar para uso local, aplicar en application properties
+	//spring.application.name=ToDoList
+	//spring.jpa.database=postgresql
+	//spring.jpa.show-sql=false
+	//spring.jpa.hibernate.ddl-auto=update
+	//spring.datasource.driver-class-name=org.postgresql.Driver
+	//spring.datasource.url=jdbc:postgresql://localhost/DB_ToDoList
+	//spring.datasource.username=postgres
+	//spring.datasource.password=040402
+	//server.port=8081
 }
