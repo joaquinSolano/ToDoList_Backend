@@ -12,4 +12,7 @@ public interface IUserService {
     public void delete(Long idUsuario);
 
     public Users listarId(Long idUsuario);
+
+    void insertUserAndRole(Users usuario);
+
 }

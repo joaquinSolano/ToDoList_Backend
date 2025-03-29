@@ -14,7 +14,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @RestController
-//@PreAuthorize("hasAuthority('ADMINISTRATOR')")
+//@PreAuthorize("hasAuthority('ADMIN')")
 //@SecurityRequirement(name = "javasecurity")
 @RequestMapping("/users")
 public class UserController {
@@ -23,14 +23,18 @@ public class UserController {
     @Autowired
     private PasswordEncoder passwordEncoder;
 
+    // Endpoint para registrar el usuario y automáticamente insertar su rol
     @PostMapping
     public void registrar(@RequestBody UserDTO dto) {
         ModelMapper m = new ModelMapper();
         Users u = m.map(dto, Users.class);
+        // Encriptamos la contraseña igual que lo hace bcrypt-generator.com
         String encodedPassword = passwordEncoder.encode(u.getPassword());
         u.setPassword(encodedPassword);
-        uS.insert(u);
+        // Llama al metodo que inserta en la tabla users y roles en una única transacción.
+        uS.insertUserAndRole(u);
     }
+
     @PutMapping
     public void modificar(@RequestBody UserDTO dto) {
         ModelMapper m = new ModelMapper();
