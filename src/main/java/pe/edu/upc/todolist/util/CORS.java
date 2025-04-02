@@ -25,12 +25,10 @@ public class CORS implements Filter {
 		HttpServletRequest request = (HttpServletRequest) req;
 
 		// Especifica la URL de tu frontend aquí
-		response.setHeader("Access-Control-Allow-Origin", "https://to-do-list-front-psi.vercel.app");
+		response.setHeader("Access-Control-Allow-Origin", "https://to-do-list-front-psi.vercel.app/");
 		response.setHeader("Access-Control-Allow-Origin", "https://to-do-list-front-psi.vercel.app/login");
-		response.setHeader("Access-Control-Allow-Origin", "https://to-do-list-front-psi.vercel.app/notes");
 		response.setHeader("Access-Control-Allow-Origin", "https://to-do-list-front-psi.vercel.app/notes/nuevo");
 		response.setHeader("Access-Control-Allow-Origin", "https://to-do-list-front-psi.vercel.app/newuser");
-		response.setHeader("Access-Control-Allow-Origin", "https://to-do-list-front-psi.vercel.app/users");
 		response.setHeader("Access-Control-Allow-Methods", "DELETE, GET, OPTIONS, PATCH, POST, PUT");
 		response.setHeader("Access-Control-Max-Age", "3600");
 		response.setHeader("Access-Control-Allow-Headers",
@@ -43,10 +41,12 @@ public class CORS implements Filter {
 			chain.doFilter(req, res);
 		}
 	}
+
 	@Override
 	public void destroy() {
-		// TODO Auto-generated method stub
+		// Código de limpieza si es necesario
 	}
+}
 	//Usar para uso local, aplicar en application properties
 	//spring.application.name=ToDoList
 	//spring.jpa.database=postgresql
@@ -57,4 +57,3 @@ public class CORS implements Filter {
 	//spring.datasource.username=postgres
 	//spring.datasource.password=040402
 	//server.port=8081
-}
