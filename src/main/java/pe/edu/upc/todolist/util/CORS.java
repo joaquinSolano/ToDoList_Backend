@@ -30,6 +30,7 @@ public class CORS implements Filter {
 		response.setHeader("Access-Control-Allow-Origin", "https://to-do-list-front-psi.vercel.app/notes");
 		response.setHeader("Access-Control-Allow-Origin", "https://to-do-list-front-psi.vercel.app/notes/nuevo");
 		response.setHeader("Access-Control-Allow-Origin", "https://to-do-list-front-psi.vercel.app/newuser");
+		response.setHeader("Access-Control-Allow-Origin", "https://to-do-list-front-psi.vercel.app/users");
 		response.setHeader("Access-Control-Allow-Methods", "DELETE, GET, OPTIONS, PATCH, POST, PUT");
 		response.setHeader("Access-Control-Max-Age", "3600");
 		response.setHeader("Access-Control-Allow-Headers",
