@@ -19,7 +19,11 @@ public class CORS implements Filter {
 		HttpServletResponse response = (HttpServletResponse) res;
 		HttpServletRequest request = (HttpServletRequest) req;
 
-		response.setHeader("Access-Control-Allow-Origin", "https://to-do-list-front-f7wdc04co-joaquinsolanos-projects.vercel.app"); // Frontend deploy
+		response.setHeader("Access-Control-Allow-Origin", "https://to-do-list-front-h0ot1c8ws-joaquinsolanos-projects.vercel.app/");
+		response.setHeader("Access-Control-Allow-Origin", "https://to-do-list-front-h0ot1c8ws-joaquinsolanos-projects.vercel.app/notes");
+		response.setHeader("Access-Control-Allow-Origin", "https://to-do-list-front-h0ot1c8ws-joaquinsolanos-projects.vercel.app/notes/nuevo");
+		response.setHeader("Access-Control-Allow-Origin", "https://to-do-list-front-h0ot1c8ws-joaquinsolanos-projects.vercel.app/users");
+		response.setHeader("Access-Control-Allow-Origin", "https://to-do-list-front-h0ot1c8ws-joaquinsolanos-projects.vercel.app/newusers");// Frontend deploy
 		response.setHeader("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, OPTIONS");
 		response.setHeader("Access-Control-Max-Age", "3600");
 		response.setHeader("Access-Control-Allow-Headers", "authorization, content-type, xsrf-token");
