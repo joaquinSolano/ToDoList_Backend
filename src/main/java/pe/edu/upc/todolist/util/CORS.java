@@ -14,27 +14,17 @@ import java.io.IOException;
 public class CORS implements Filter {
 
 	@Override
-	public void init(FilterConfig filterConfig) throws ServletException {
-		// Inicialización si es necesaria
-	}
-
-	@Override
 	public void doFilter(ServletRequest req, ServletResponse res, FilterChain chain)
 			throws IOException, ServletException {
 		HttpServletResponse response = (HttpServletResponse) res;
 		HttpServletRequest request = (HttpServletRequest) req;
 
-		// Especifica la URL de tu frontend aquí
-		response.setHeader("Access-Control-Allow-Origin", "https://to-do-list-front-psi.vercel.app/");
-		response.setHeader("Access-Control-Allow-Origin", "https://to-do-list-front-psi.vercel.app/login");
-		response.setHeader("Access-Control-Allow-Origin", "https://to-do-list-front-psi.vercel.app/notes/nuevo");
-		response.setHeader("Access-Control-Allow-Origin", "https://to-do-list-front-psi.vercel.app/newuser");
-		response.setHeader("Access-Control-Allow-Methods", "DELETE, GET, OPTIONS, PATCH, POST, PUT");
+		response.setHeader("Access-Control-Allow-Origin", "https://to-do-list-front-f7wdc04co-joaquinsolanos-projects.vercel.app"); // Frontend deploy
+		response.setHeader("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, OPTIONS");
 		response.setHeader("Access-Control-Max-Age", "3600");
-		response.setHeader("Access-Control-Allow-Headers",
-				"x-requested-with, authorization, Content-Type, Authorization, credential, X-XSRF-TOKEN");
+		response.setHeader("Access-Control-Allow-Headers", "authorization, content-type, xsrf-token");
+		response.addHeader("Access-Control-Expose-Headers", "xsrf-token");
 
-		// Manejo de solicitudes OPTIONS
 		if ("OPTIONS".equalsIgnoreCase(request.getMethod())) {
 			response.setStatus(HttpServletResponse.SC_OK);
 		} else {
