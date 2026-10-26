@@ -18,7 +18,7 @@ public class CORS implements Filter {
 	// Orígenes fijos: solo esquema + host + puerto, sin rutas ni "/" final
 	private static final Set<String> ALLOWED_ORIGINS = Set.of(
 			"http://localhost:4200",
-			"https://to-do-list-front.vercel.app"
+			"https://to-do-list-front-git-master-joaquinsolanos-projects.vercel.app"
 	);
 
 	// Cualquier deploy de tu proyecto en Vercel:
