@@ -9,18 +9,28 @@ import org.springframework.stereotype.Component;
 
 import java.io.IOException;
 import java.util.Set;
+import java.util.regex.Pattern;
 
 @Component
 @Order(Ordered.HIGHEST_PRECEDENCE)
 public class CORS implements Filter {
 
-	// Solo esquema + host + puerto: sin rutas y sin "/" final
+	// Orígenes fijos: solo esquema + host + puerto, sin rutas ni "/" final
 	private static final Set<String> ALLOWED_ORIGINS = Set.of(
 			"http://localhost:4200",
-			"http://localhost:4200/notes",
-			"http://localhost:4200/users",
-			"https://to-do-list-front-h0ot1c8ws-joaquinsolanos-projects.vercel.app"
+			"https://to-do-list-front.vercel.app"
 	);
+
+	// Cualquier deploy de tu proyecto en Vercel:
+	// https://to-do-list-front-<lo-que-sea>-joaquinsolanos-projects.vercel.app
+	private static final Pattern VERCEL_PREVIEW = Pattern.compile(
+			"^https://to-do-list-front(-[a-z0-9-]+)?-joaquinsolanos-projects\\.vercel\\.app$"
+	);
+
+	private boolean isAllowed(String origin) {
+		return origin != null
+				&& (ALLOWED_ORIGINS.contains(origin) || VERCEL_PREVIEW.matcher(origin).matches());
+	}
 
 	@Override
 	public void doFilter(ServletRequest req, ServletResponse res, FilterChain chain)
@@ -29,7 +39,7 @@ public class CORS implements Filter {
 		HttpServletResponse response = (HttpServletResponse) res;
 
 		String origin = request.getHeader("Origin");
-		if (origin != null && ALLOWED_ORIGINS.contains(origin)) {
+		if (isAllowed(origin)) {
 			response.setHeader("Access-Control-Allow-Origin", origin);
 			response.setHeader("Vary", "Origin");
 		}
@@ -45,26 +55,3 @@ public class CORS implements Filter {
 		}
 	}
 }
-
-//	@Override
-//	public void destroy() {
-//		// Código de limpieza si es necesario
-//	}
-//}
-	//Usar para uso local, aplicar en application properties
-	//spring.application.name=ToDoList
-	//spring.jpa.database=postgresql
-	//spring.jpa.show-sql=false
-	//spring.jpa.hibernate.ddl-auto=update
-	//spring.datasource.driver-class-name=org.postgresql.Driver
-	//spring.datasource.url=jdbc:postgresql://localhost/DB_ToDoList
-	//spring.datasource.username=postgres
-	//spring.datasource.password=040402
-	//server.port=8081
-
-
-//response.setHeader("Access-Control-Allow-Origin", "https://to-do-list-front-h0ot1c8ws-joaquinsolanos-projects.vercel.app/");
-//response.setHeader("Access-Control-Allow-Origin", "https://to-do-list-front-h0ot1c8ws-joaquinsolanos-projects.vercel.app/notes");
-//response.setHeader("Access-Control-Allow-Origin", "https://to-do-list-front-h0ot1c8ws-joaquinsolanos-projects.vercel.app/notes/nuevo");
-//response.setHeader("Access-Control-Allow-Origin", "https://to-do-list-front-h0ot1c8ws-joaquinsolanos-projects.vercel.app/users");
-//response.setHeader("Access-Control-Allow-Origin", "https://to-do-list-front-h0ot1c8ws-joaquinsolanos-projects.vercel.app/newusers");// Frontend deploy
