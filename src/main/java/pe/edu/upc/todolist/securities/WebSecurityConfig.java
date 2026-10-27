@@ -77,11 +77,9 @@ public class WebSecurityConfig {
                         //Acceso admin y user
                         .requestMatchers("/notes/**").hasAnyAuthority("ADMIN", "USER")
                         //Acceso solo admin
-                        .requestMatchers("/roles/**").hasAuthority("ADMIN")
-                        .requestMatchers(HttpMethod.GET, "/users/**").hasAuthority("ADMIN")
-                        .requestMatchers(HttpMethod.PUT, "/users").hasAuthority("ADMIN")
-                        .requestMatchers(HttpMethod.DELETE, "/users/**").hasAuthority("ADMIN")
-
+                        .requestMatchers("/notes/**").hasAnyAuthority("ADMIN")
+                        .requestMatchers("/users/**").hasAnyAuthority("ADMIN")
+                        .requestMatchers("/roles/**").hasAnyAuthority("ADMIN")
                         .anyRequest().authenticated()
                 )
                 .httpBasic(Customizer.withDefaults())
