@@ -13,8 +13,6 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @RestController
-//@PreAuthorize("hasAuthority('ADMINISTRATOR')")
-//@SecurityRequirement(name = "javasecurity")
 @RequestMapping("/roles")
 public class RoleController {
     @Autowired

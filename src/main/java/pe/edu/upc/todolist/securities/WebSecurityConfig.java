@@ -68,11 +68,20 @@ public class WebSecurityConfig {
         httpSecurity
                 .csrf(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests(req -> req
-                        .requestMatchers(antMatcher("/login")).permitAll()
+                        //Acceso General
+                        .requestMatchers(HttpMethod.POST, "/users").permitAll() //acceso a creacion de nuevos usuarios
+                        .requestMatchers(HttpMethod.POST, "/login").permitAll() //acceso al login
                         .requestMatchers(antMatcher("/v3/api-docs/**")).permitAll()
                         .requestMatchers(antMatcher("/swagger-ui/**")).permitAll()
                         .requestMatchers(antMatcher("/swagger-ui.html")).permitAll()
-                        .requestMatchers(HttpMethod.POST, "/users").permitAll()
+                        //Acceso admin y user
+                        .requestMatchers("/notes/**").hasAnyAuthority("ADMIN", "USER")
+                        //Acceso solo admin
+                        .requestMatchers("/roles/**").hasAuthority("ADMIN")
+                        .requestMatchers(HttpMethod.GET, "/users/**").hasAuthority("ADMIN")
+                        .requestMatchers(HttpMethod.PUT, "/users").hasAuthority("ADMIN")
+                        .requestMatchers(HttpMethod.DELETE, "/users/**").hasAuthority("ADMIN")
+
                         .anyRequest().authenticated()
                 )
                 .httpBasic(Customizer.withDefaults())

@@ -14,8 +14,6 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @RestController
-//@PreAuthorize("hasAuthority('ADMINISTRATOR')")
-//@SecurityRequirement(name = "javasecurity")
 @RequestMapping("/notes")
 public class NotesController {
     @Autowired
